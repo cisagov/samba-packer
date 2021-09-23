@@ -1,0 +1,9 @@
+---
+- hosts: all
+  name: Install Samba server
+  become: yes
+  become_method: sudo
+  roles:
+    - role: samba
+      vars:
+        server: true
