@@ -10,7 +10,7 @@
           "volume_type": "gp2"
         }
       ],
-      "ami_name": "example-hvm-{{timestamp}}-x86_64-ebs",
+      "ami_name": "samba-hvm-{{timestamp}}-x86_64-ebs",
       "ami_regions": "",
       "associate_public_ip_address": true,
       "encrypt_boot": true,
