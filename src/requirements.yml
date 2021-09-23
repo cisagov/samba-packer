@@ -15,8 +15,6 @@
   name: cloudwatch_agent
 - src: https://github.com/cisagov/ansible-role-dev-ssh-access
   name: dev_ssh_access
-- src: https://github.com/cisagov/skeleton-ansible-role
-  name: example
 - src: https://github.com/cisagov/ansible-role-htop
   name: htop
 - src: https://github.com/cisagov/ansible-role-nvme
@@ -29,5 +27,8 @@
   name: python
 - src: https://github.com/cisagov/ansible-role-remove-python2
   name: remove_python2
+- src: https://github.com/cisagov/ansible-role-samba
+  name: samba
+  version: first-commits
 - src: https://github.com/cisagov/ansible-role-upgrade
   name: upgrade
