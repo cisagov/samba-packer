@@ -14,14 +14,19 @@
     - name: Configure Samba unit file
       block:
         - name: Make Samba start after /share is mounted
-          ansible.builtin.lineinfile:
-            insertafter: ^After=.*$
+          community.general.ini_file:
+            create: no
+            # SystemD unit files don't use extra spaces
+            no_extra_spaces: yes
+            option: /share
             path: /lib/systemd/system/smbd.service
-            line: RequiresMountsFor=/share
-            validate: /usr/bin/systemd-analyze verify %s
+            section: Unit
+            value: RequiresMountsFor
     - name: Configure Samba
       block:
         - name: Send logs to syslog as well
+          # The ini_file module won't handle tacking extra text onto a
+          # line, so we have to use lineinfile for this.
           ansible.builtin.lineinfile:
             path: /etc/samba/smb.conf
             # The negative lookahead makes this regex match lines that
@@ -30,15 +35,17 @@
             replace: \1 syslog@1
             validate: /usr/bin/testparm --suppress-prompt %s
         - name: Share EFS mount
-          ansible.builtin.blockinfile:
-            block: >-
-              [Share]
-                browseable = yes
-                guest ok = yes
-                guest only = yes
-                map to guest = Bad User
-                path = /share
-                read only = no
-                security = user
+          community.general.ini_file:
+            create: no
+            option: "{{ item.option }}"
             path: /etc/samba/smb.conf
-            validate: /usr/bin/testparm --suppress-prompt %s
+            section: Share
+            value: "{{ item.value }}"
+          loop:
+            - {option: "browseable", value: "yes"}
+            - {option: "guest ok", value: "yes"}
+            - {option: "guest only", value: "yes"}
+            - {option: "map to guest", value: "Bad User"}
+            - {option: "path", value: "/share"}
+            - {option: "read only", value: "no"}
+            - {option: "security", value: "user"}
