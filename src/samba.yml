@@ -42,6 +42,16 @@
             section: Share
             value: "{{ item.value }}"
           loop:
+            # See the smb.conf man page for details about these
+            # options:
+            # https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html
+            #
+            # The "map to guest" option with the "Bad User" value is a
+            # bit mysterious, but it is explained on the
+            # aforementioned man page: "Bad User - Means user logins
+            # with an invalid password are rejected, unless the
+            # username does not exist, in which case it is treated as
+            # a guest login and mapped into the guest account."
             - {option: "browseable", value: "yes"}
             - {option: "guest ok", value: "yes"}
             - {option: "guest only", value: "yes"}
