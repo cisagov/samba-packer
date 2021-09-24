@@ -6,4 +6,39 @@
   roles:
     - role: samba
       vars:
-        server: true
+        create_guest_user: yes
+        server: yes
+  tasks:
+    # This way samba should not start until after the EFS share is
+    # mounted.
+    - name: Configure Samba unit file
+      block:
+        - name: Make Samba start after /share is mounted
+          ansible.builtin.lineinfile:
+            insertafter: ^After=.*$
+            path: /lib/systemd/system/smbd.service
+            line: RequiresMountsFor=/share
+            validate: /usr/bin/systemd-analyze verify %s
+    - name: Configure Samba
+      block:
+        - name: Send logs to syslog as well
+          ansible.builtin.lineinfile:
+            path: /etc/samba/smb.conf
+            # The negative lookahead makes this regex match lines that
+            # start with "logging=" but _do not_ contain "syslog@1".
+            regexp: ^(\s*logging=.*(?!syslog@1).*)
+            replace: \1 syslog@1
+            validate: /usr/bin/testparm --suppress-prompt %s
+        - name: Share EFS mount
+          ansible.builtin.blockinfile:
+            block: >-
+              [Share]
+                browseable = yes
+                guest ok = yes
+                guest only = yes
+                map to guest = Bad User
+                path = /share
+                read only = no
+                security = user
+            path: /etc/samba/smb.conf
+            validate: /usr/bin/testparm --suppress-prompt %s
