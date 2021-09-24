@@ -26,8 +26,8 @@
       block:
         - name: Send logs to syslog as well
           # The ini_file module won't handle tacking extra text onto a
-          # line, so we have to use lineinfile for this.
-          ansible.builtin.lineinfile:
+          # line, so we have to use replace for this.
+          ansible.builtin.replace:
             path: /etc/samba/smb.conf
             # The negative lookahead makes this regex match lines that
             # start with "logging=" but _do not_ contain "syslog@1".
