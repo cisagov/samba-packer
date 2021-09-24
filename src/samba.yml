@@ -9,7 +9,7 @@
         create_guest_user: yes
         server: yes
   tasks:
-    # This way samba should not start until after the EFS share is
+    # This way Samba should not start until after the EFS share is
     # mounted.
     - name: Configure Samba unit file
       block:
