@@ -25,11 +25,11 @@ locals {
 }
 
 # The most-recent AMI created by cisagov/samba-packer
-data "aws_ami" "example" {
+data "aws_ami" "samba" {
   filter {
     name = "name"
     values = [
-      "example-hvm-*-x86_64-ebs",
+      "samba-hvm-*-x86_64-ebs",
     ]
   }
 
@@ -57,5 +57,5 @@ module "ami_launch_permission" {
   }
 
   account_name_regex = local.account_name_regex
-  ami_id             = data.aws_ami.example.id
+  ami_id             = data.aws_ami.samba.id
 }
