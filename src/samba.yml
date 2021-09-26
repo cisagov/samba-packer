@@ -39,7 +39,7 @@
             create: no
             option: "{{ item.option }}"
             path: /etc/samba/smb.conf
-            section: Share
+            section: "{{ item.section }}"
             value: "{{ item.value }}"
           loop:
             # See the smb.conf man page for details about these
@@ -52,10 +52,10 @@
             # with an invalid password are rejected, unless the
             # username does not exist, in which case it is treated as
             # a guest login and mapped into the guest account."
-            - {option: "browseable", value: "yes"}
-            - {option: "guest ok", value: "yes"}
-            - {option: "guest only", value: "yes"}
-            - {option: "map to guest", value: "Bad User"}
-            - {option: "path", value: "/share"}
-            - {option: "read only", value: "no"}
-            - {option: "security", value: "user"}
+            - {option: "browseable", section: "Share", value: "yes"}
+            - {option: "guest ok", section: "Share", value: "yes"}
+            - {option: "guest only", section: "Share", value: "yes"}
+            - {option: "map to guest", section: "global", value: "Bad User"}
+            - {option: "path", section: "Share", value: "/share"}
+            - {option: "read only", section: "Share", value: "no"}
+            - {option: "security", section: "global", value: "user"}
