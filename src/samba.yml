@@ -7,6 +7,9 @@
     - role: samba
       vars:
         create_guest_user: yes
+        guest_user_uid: 2048
+        guest_user_groups:
+          - efs_users
         server: yes
   tasks:
     # This way Samba should not start until after the EFS share is
