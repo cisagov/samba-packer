@@ -1,7 +1,6 @@
 ---
 - src: https://github.com/cisagov/ansible-role-amazon-efs-utils
   name: amazon_efs_utils
-  version: improvement/add-efs-user-group
 - src: https://github.com/cisagov/ansible-role-amazon-ssm-agent
   name: amazon_ssm_agent
 - src: https://github.com/cisagov/ansible-role-backports
