@@ -30,6 +30,5 @@
   name: remove_python2
 - src: https://github.com/cisagov/ansible-role-samba
   name: samba
-  version: first-commits
 - src: https://github.com/cisagov/ansible-role-upgrade
   name: upgrade
