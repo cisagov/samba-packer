@@ -23,7 +23,9 @@
     # aws/efs-utils to support python3 in their packaging.  (The code
     # itself already supports python3.)  Until they change that, this
     # role is the last thing that Ansible installs.
-    - amazon_efs_utils
+    - role: amazon_efs_utils
+      vars:
+        efs_users_gid: 2048
   tasks:
     # The version of python3-botocore in Debian Buster is too old to
     # support IMDSv2.  I was able to get a more recent version

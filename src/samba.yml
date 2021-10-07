@@ -1,0 +1,64 @@
+---
+- hosts: all
+  name: Install Samba server
+  become: yes
+  become_method: sudo
+  roles:
+    - role: samba
+      vars:
+        create_guest_user: yes
+        guest_user_uid: 2048
+        guest_user_groups:
+          - efs_users
+        server: yes
+  tasks:
+    # This way Samba should not start until after the EFS share is
+    # mounted.
+    - name: Configure Samba unit file
+      block:
+        - name: Make Samba start after /share is mounted
+          community.general.ini_file:
+            create: no
+            # SystemD unit files don't use extra spaces
+            no_extra_spaces: yes
+            option: /share
+            path: /lib/systemd/system/smbd.service
+            section: Unit
+            value: RequiresMountsFor
+    - name: Configure Samba
+      block:
+        - name: Send logs to syslog as well
+          # The ini_file module won't handle tacking extra text onto a
+          # line, so we have to use replace for this.
+          ansible.builtin.replace:
+            path: /etc/samba/smb.conf
+            # The negative lookahead makes this regex match lines that
+            # start with "logging=" but _do not_ contain "syslog@1".
+            regexp: ^(\s*logging=.*(?!syslog@1).*)
+            replace: \1 syslog@1
+            validate: /usr/bin/testparm --suppress-prompt %s
+        - name: Share EFS mount
+          community.general.ini_file:
+            create: no
+            option: "{{ item.option }}"
+            path: /etc/samba/smb.conf
+            section: "{{ item.section }}"
+            value: "{{ item.value }}"
+          loop:
+            # See the smb.conf man page for details about these
+            # options:
+            # https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html
+            #
+            # The "map to guest" option with the "Bad User" value is a
+            # bit mysterious, but it is explained on the
+            # aforementioned man page: "Bad User - Means user logins
+            # with an invalid password are rejected, unless the
+            # username does not exist, in which case it is treated as
+            # a guest login and mapped into the guest account."
+            - {option: "browseable", section: "Share", value: "yes"}
+            - {option: "guest ok", section: "Share", value: "yes"}
+            - {option: "guest only", section: "Share", value: "yes"}
+            - {option: "map to guest", section: "global", value: "Bad User"}
+            - {option: "path", section: "Share", value: "/share"}
+            - {option: "read only", section: "Share", value: "no"}
+            - {option: "security", section: "global", value: "user"}
