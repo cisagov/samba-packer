@@ -8,7 +8,7 @@
       vars:
         create_guest_user: yes
         # Note that we use the same UID for the VNC and Samba guest
-        # users on all instances.  This helos us avoid UID/GID
+        # users on all instances.  This helps us avoid UID/GID
         # collisions with files written to the EFS share.
         guest_user_uid: 2048
         guest_user_groups:
