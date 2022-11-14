@@ -3,6 +3,8 @@
   name: amazon_efs_utils
 - src: https://github.com/cisagov/ansible-role-amazon-ssm-agent
   name: amazon_ssm_agent
+- src: https://github.com/cisagov/ansible-role-automated-security-updates
+  name: automated_security_updates
 - src: https://github.com/cisagov/ansible-role-backports
   name: backports
 - src: https://github.com/cisagov/ansible-role-banner
@@ -13,8 +15,13 @@
   name: clamav
 - src: https://github.com/cisagov/ansible-role-cloudwatch-agent
   name: cloudwatch_agent
+<<<<<<< HEAD
 - src: https://github.com/cisagov/ansible-role-dev-ssh-access
   name: dev_ssh_access
+=======
+- src: https://github.com/cisagov/skeleton-ansible-role
+  name: example
+>>>>>>> 1ea6ed642cd2e7cdd4ec59aa757bd59b9c77a844
 - src: https://github.com/cisagov/ansible-role-htop
   name: htop
 - src: https://github.com/cisagov/ansible-role-nvme
