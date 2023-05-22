@@ -13,8 +13,6 @@
   src: https://github.com/cisagov/ansible-role-clamav
 - name: cloudwatch_agent
   src: https://github.com/cisagov/ansible-role-cloudwatch-agent
-- name: example
-  src: https://github.com/cisagov/skeleton-ansible-role
 - name: htop
   src: https://github.com/cisagov/ansible-role-htop
 - name: nvme
@@ -27,5 +25,7 @@
   src: https://github.com/cisagov/ansible-role-python
 - name: remove_python2
   src: https://github.com/cisagov/ansible-role-remove-python2
+- name: samba
+  src: https://github.com/cisagov/ansible-role-samba
 - name: upgrade
   src: https://github.com/cisagov/ansible-role-upgrade
