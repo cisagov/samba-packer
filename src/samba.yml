@@ -3,8 +3,10 @@
   name: Install Samba server
   become: yes
   become_method: sudo
-  roles:
-    - role: samba
+  tasks:
+    - name: Install Samba
+      ansible.builtin.include_role:
+        name: samba
       vars:
         create_guest_user: yes
         # Note that we use the same UID for the VNC and Samba guest
@@ -17,7 +19,6 @@
           # created.
           - efs_users
         server: yes
-  tasks:
     # This way Samba should not start until after the EFS share is
     # mounted.
     - name: Configure Samba unit file
