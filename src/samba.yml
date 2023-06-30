@@ -8,17 +8,17 @@
       ansible.builtin.include_role:
         name: samba
       vars:
-        create_guest_user: yes
+        samba_create_guest_user: yes
         # Note that we use the same UID for the VNC and Samba guest
         # users on all instances.  This helps us avoid UID/GID
         # collisions with files written to the EFS share.
-        guest_user_uid: 2048
-        guest_user_groups:
+        samba_guest_user_uid: 2048
+        samba_guest_user_groups:
           # Note that this means that the aws.yml playbook _must_ run
           # before this one, so that the efs_users group has been
           # created.
           - efs_users
-        server: yes
+        samba_server: yes
     # This way Samba should not start until after the EFS share is
     # mounted.
     - name: Configure Samba unit file
