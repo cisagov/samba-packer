@@ -1,14 +1,14 @@
 ---
 - hosts: all
   name: Install Samba server
-  become: yes
+  become: true
   become_method: ansible.builtin.sudo
   tasks:
     - name: Install Samba
       ansible.builtin.include_role:
         name: samba
       vars:
-        samba_create_guest_user: yes
+        samba_create_guest_user: true
         # Note that we use the same UID for the VNC and Samba guest
         # users on all instances.  This helps us avoid UID/GID
         # collisions with files written to the EFS share.
@@ -18,16 +18,16 @@
           # before this one, so that the efs_users group has been
           # created.
           - efs_users
-        samba_server: yes
+        samba_server: true
     # This way Samba should not start until after the EFS share is
     # mounted.
     - name: Configure Samba unit file
       block:
         - name: Make Samba start after /share is mounted
           community.general.ini_file:
-            create: no
+            create: false
             # SystemD unit files don't use extra spaces
-            no_extra_spaces: yes
+            no_extra_spaces: true
             option: /share
             path: /lib/systemd/system/smbd.service
             section: Unit
@@ -46,7 +46,7 @@
             validate: /usr/bin/testparm --suppress-prompt %s
         - name: Share EFS mount
           community.general.ini_file:
-            create: no
+            create: false
             option: "{{ item.option }}"
             path: /etc/samba/smb.conf
             section: "{{ item.section }}"
