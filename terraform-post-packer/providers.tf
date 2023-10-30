@@ -1,7 +1,7 @@
 locals {
   tags = {
-    Team        = "CISA - Development"
     Application = "samba-packer"
+    Team        = "CISA - Development"
   }
 }
 
