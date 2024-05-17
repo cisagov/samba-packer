@@ -30,5 +30,7 @@ roles:
     src: https://github.com/cisagov/ansible-role-remove-python2
   - name: samba
     src: https://github.com/cisagov/ansible-role-samba
+  - name: systemd_resolved
+    src: https://github.com/cisagov/ansible-role-systemd-resolved
   - name: upgrade
     src: https://github.com/cisagov/ansible-role-upgrade
