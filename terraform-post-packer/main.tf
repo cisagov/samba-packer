@@ -31,14 +31,14 @@ data "aws_ami_ids" "historical_amis" {
   filter {
     name = "architecture"
     values = [
-      "x86_64",
+      "arm64",
     ]
   }
 
   filter {
     name = "name"
     values = [
-      "samba-hvm-*-x86_64-ebs",
+      "samba-hvm-*-arm64-ebs",
     ]
   }
 
