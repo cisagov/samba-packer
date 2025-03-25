@@ -7,6 +7,5 @@ module "iam_user" {
     aws.images-ssm = aws.images-ssm
   }
 
-  ssm_parameters = ["/cyhy/dev/users", "/ssh/public_keys/*"]
-  user_name      = "build-samba-packer"
+  user_name = "build-samba-packer"
 }
