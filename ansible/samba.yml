@@ -62,10 +62,24 @@
             # with an invalid password are rejected, unless the
             # username does not exist, in which case it is treated as
             # a guest login and mapped into the guest account."
-            - {option: "browseable", section: "Share", value: "yes"}
-            - {option: "guest ok", section: "Share", value: "yes"}
-            - {option: "guest only", section: "Share", value: "yes"}
-            - {option: "map to guest", section: "global", value: "Bad User"}
-            - {option: "path", section: "Share", value: "/share"}
-            - {option: "read only", section: "Share", value: "no"}
-            - {option: "security", section: "global", value: "user"}
+            - option: browseable
+              section: Share
+              value: "yes"
+            - option: guest ok
+              section: Share
+              value: "yes"
+            - option: guest only
+              section: Share
+              value: "yes"
+            - option: map to guest
+              section: global
+              value: Bad User
+            - option: path
+              section: Share
+              value: /share
+            - option: read only
+              section: Share
+              value: "no"
+            - option: security
+              section: global
+              value: user
