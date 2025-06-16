@@ -28,10 +28,10 @@
             create: false
             # SystemD unit files don't use extra spaces
             no_extra_spaces: true
-            option: /share
+            option: RequiresMountsFor
             path: /lib/systemd/system/smbd.service
             section: Unit
-            value: RequiresMountsFor
+            value: /share
     - name: Configure Samba
       block:
         - name: Send logs to syslog as well
