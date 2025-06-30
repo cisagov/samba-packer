@@ -21,17 +21,29 @@
         samba_server: true
     # This way Samba should not start until after the EFS share is
     # mounted.
-    - name: Configure Samba unit file
+    - name: Configure Samba systemd service
       block:
-        - name: Make Samba start after /share is mounted
+        - name: >-
+            Ensure that the directory where the smbd drop-in will live
+            actually exists
+          ansible.builtin.file:
+            group: root
+            mode: u=rwx,g=rx,o=rx
+            owner: root
+            path: /etc/systemd/system/smbd.service.d
+            state: directory
+
+        - name: Ensure that smbd starts after /share is mounted
           community.general.ini_file:
-            create: false
-            # SystemD unit files don't use extra spaces
+            group: root
+            mode: u=rw,g=r,o=r
+            # systemd unit files don't use extra spaces
             no_extra_spaces: true
-            option: /share
-            path: /lib/systemd/system/smbd.service
+            option: RequiresMountsFor
+            owner: root
+            path: /etc/systemd/system/smbd.service.d/smbd.conf
             section: Unit
-            value: RequiresMountsFor
+            value: /share
     - name: Configure Samba
       block:
         - name: Send logs to syslog as well
