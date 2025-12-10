@@ -1,6 +1,8 @@
 # samba-packer 💀📦 #
 
 [![GitHub Build Status](https://github.com/cisagov/samba-packer/workflows/build/badge.svg)](https://github.com/cisagov/samba-packer/actions)
+[![License](https://img.shields.io/github/license/cisagov/samba-packer)](https://spdx.org/licenses/)
+[![CodeQL](https://github.com/cisagov/samba-packer/workflows/CodeQL/badge.svg)](https://github.com/cisagov/samba-packer/actions/workflows/codeql-analysis.yml)
 
 This repository contains [Packer](https://packer.io) code to build a
 [Samba](https://www.samba.org/)-enabled AWS AMI.
