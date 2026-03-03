@@ -10,6 +10,7 @@ collections:
   # - ansible-role-automated-security-updates (uses community.general.ini_file)
   # - ansible-role-cloudwatch-agent (uses community.general.ini_file)
   # - ansible-role-persist-journald (uses community.general.ini_file)
+  # - ansible-role-samba (uses community.general.ini_file)
   # - ansible-role-systemd-resolved (uses community.general.ini_file)
   - community.general
 roles:
