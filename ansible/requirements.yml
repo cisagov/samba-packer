@@ -12,6 +12,9 @@ collections:
   # - ansible-role-persist-journald (uses community.general.ini_file)
   # - ansible-role-samba (uses community.general.ini_file)
   # - ansible-role-systemd-resolved (uses community.general.ini_file)
+  #
+  # Also required by the following playbooks:
+  # - ansible/samba.yml (uses community.general.ini_file)
   - community.general
 roles:
   - name: amazon_efs_utils
